@@ -1,0 +1,78 @@
+package fr.nemaria.mods.future.blocks;
+
+import fr.nemaria.mods.future.core.utils.Utils;
+import fr.nemaria.mods.future.lib.Reference;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+
+/**
+ * Because the standard block constructor is protected...
+ * I also provide some extra helper functions and stuff :3
+ */
+public class BaseBlock extends Block {
+
+	private Block mapColorBase;
+
+	public BaseBlock(Material p_i45394_1_) {
+		super(p_i45394_1_);
+		setCreativeTab(CreativeTabs.tabBlock);
+	}
+
+	public BaseBlock setUnlocalizedNameWithPrefix(String name) {
+		setBlockName((getNameDomain().isEmpty() ? "" : getNameDomain() + ".") + name);
+		return this;
+	}
+
+	@Override
+	public Block setBlockTextureName(String name) {
+		return super.setBlockTextureName((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":")
+				+ (getTextureSubfolder().isEmpty() ? "" : getTextureSubfolder() + "/") + name);
+	}
+
+	public BaseBlock setNames(String name) {
+		setUnlocalizedNameWithPrefix(name);
+		setBlockTextureName(name);
+		return this;
+	}
+
+	public BaseBlock setToolClass(String toolClass, int level) {
+		for (int m = 0; m < 16; m++) {
+			setHarvestLevel(toolClass, level, m);
+		}
+		return this;
+	}
+
+	public BaseBlock setToolClass(String toolClass, int level, int meta) {
+		setHarvestLevel(toolClass, level, meta);
+		return this;
+	}
+
+	public BaseBlock setBlockSound(SoundType type) {
+		Utils.setBlockSound(this, type);
+		return this;
+	}
+
+	public BaseBlock setMapColorBaseBlock(Block block) {
+		mapColorBase = block;
+		return this;
+	}
+
+	@Override
+	public MapColor getMapColor(int p_149728_1_) {
+		return mapColorBase == null ? super.getMapColor(p_149728_1_) : mapColorBase.getMapColor(p_149728_1_);
+	}
+
+	public String getTextureDomain() {
+		return "";
+	}
+
+	public String getTextureSubfolder() {
+		return "";
+	}
+
+	public String getNameDomain() {
+		return Reference.MOD_ID;
+	}
+}

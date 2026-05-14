@@ -1,0 +1,42 @@
+﻿package fr.nemaria.mods.future.blocks;
+
+import fr.nemaria.mods.future.client.sound.ModSounds;
+import fr.nemaria.mods.future.tileentities.TileEntityLightningRod;
+import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class BlockLightningRod extends BaseBlock {
+
+	public BlockLightningRod() {
+		super(Material.iron);
+		setHardness(3);
+		setResistance(6);
+		setHarvestLevel("pickaxe", 1);
+		setNames("lightning_rod");
+		setBlockSound(ModSounds.soundCopper);
+		setTickRandomly(true);
+	}
+
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+		return new TileEntityLightningRod();
+	}
+
+	/**
+	 * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
+	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
+	 */
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	/**
+	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
+	 */
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+}
+

@@ -1,0 +1,24 @@
+﻿package fr.nemaria.mods.future.blocks;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+
+public class BlockBountifulStone extends BaseSubtypesBlock {
+
+	public BlockBountifulStone() {
+		super(Material.rock, 1, "", "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");
+		setHardness(1.5F);
+		setResistance(6.0F);
+		setNames("stone");
+		setCreativeTab(CreativeTabs.tabBlock);
+	}
+
+	@Override
+	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
+		return this == target || target == Blocks.stone;
+	}
+}
+

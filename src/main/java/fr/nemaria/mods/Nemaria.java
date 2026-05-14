@@ -1,0 +1,1018 @@
+package fr.nemaria.mods;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
+import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import fr.nemaria.mods.future.ModBlocks;
+import fr.nemaria.mods.future.ModEnchantments;
+import fr.nemaria.mods.future.ModItems;
+import fr.nemaria.mods.future.NemariaLootTables;
+import fr.nemaria.mods.future.api.BeePlantRegistry;
+import fr.nemaria.mods.future.api.BrewingFuelRegistry;
+import fr.nemaria.mods.future.api.CompostingRegistry;
+import fr.nemaria.mods.future.api.DeepslateOreRegistry;
+import fr.nemaria.mods.future.api.HoeRegistry;
+import fr.nemaria.mods.future.api.MultiBlockSoundRegistry;
+import fr.nemaria.mods.future.api.PistonBehaviorRegistry;
+import fr.nemaria.mods.future.api.RawOreRegistry;
+import fr.nemaria.mods.future.api.StrippedLogRegistry;
+import fr.nemaria.mods.future.api.mappings.BasicMultiBlockSound;
+import fr.nemaria.mods.future.blocks.BlockSculk;
+import fr.nemaria.mods.future.blocks.BlockSculkCatalyst;
+import fr.nemaria.mods.future.client.BuiltInResourcePack;
+import fr.nemaria.mods.future.client.DynamicSoundsResourcePack;
+import fr.nemaria.mods.future.client.GrayscaleWaterResourcePack;
+import fr.nemaria.mods.future.client.sound.ModSounds;
+import fr.nemaria.mods.future.command.CommandFill;
+import fr.nemaria.mods.future.command.CommandGameMode;
+import fr.nemaria.mods.future.compat.ModsList;
+import fr.nemaria.mods.future.configuration.*;
+import fr.nemaria.mods.future.configuration.configs.ConfigBlocksItems;
+import fr.nemaria.mods.future.configuration.configs.ConfigExperiments;
+import fr.nemaria.mods.future.configuration.configs.ConfigFunctions;
+import fr.nemaria.mods.future.configuration.configs.ConfigMixins;
+import fr.nemaria.mods.future.configuration.configs.ConfigSounds;
+import fr.nemaria.mods.future.core.handlers.WorldEventHandler;
+import fr.nemaria.mods.future.core.utils.IInitAction;
+import fr.nemaria.mods.future.lib.Reference;
+import fr.nemaria.mods.future.network.ArmourStandInteractHandler;
+import fr.nemaria.mods.future.network.ArmourStandInteractMessage;
+import fr.nemaria.mods.future.network.AttackYawHandler;
+import fr.nemaria.mods.future.network.AttackYawMessage;
+import fr.nemaria.mods.future.network.BlackHeartParticlesHandler;
+import fr.nemaria.mods.future.network.BlackHeartParticlesMessage;
+import fr.nemaria.mods.future.network.BoatMoveHandler;
+import fr.nemaria.mods.future.network.BoatMoveMessage;
+import fr.nemaria.mods.future.network.ChestBoatOpenInventoryHandler;
+import fr.nemaria.mods.future.network.ChestBoatOpenInventoryMessage;
+import fr.nemaria.mods.future.network.StartElytraFlyingHandler;
+import fr.nemaria.mods.future.network.StartElytraFlyingMessage;
+import fr.nemaria.mods.future.network.WoodSignOpenHandler;
+import fr.nemaria.mods.future.network.WoodSignOpenMessage;
+import fr.nemaria.mods.future.potion.ModPotions;
+import fr.nemaria.mods.future.recipes.ModRecipes;
+import fr.nemaria.mods.future.recipes.SmithingTableRecipes;
+import fr.nemaria.mods.future.spectator.SpectatorMode;
+import fr.nemaria.mods.future.world.EtFuturumLateWorldGenerator;
+import fr.nemaria.mods.future.world.EtFuturumWorldGenerator;
+import fr.nemaria.mods.future.world.end.dimension.DimensionProviderEFREnd;
+import fr.nemaria.mods.future.world.nether.biome.utils.NetherBiomeManager;
+import fr.nemaria.mods.future.world.nether.dimension.DimensionProviderEFRNether;
+import fr.nemaria.mods.future.world.structure.OceanMonument;
+import fr.nemaria.mods.proxy.CommonProxy;
+import makamys.mclib.core.MCLib;
+import makamys.mclib.ext.assetdirector.ADConfig;
+import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
+import net.minecraft.block.Block;
+import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockHay;
+import net.minecraft.block.BlockHopper;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLilyPad;
+import net.minecraft.block.BlockNetherWart;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockSponge;
+import net.minecraft.block.BlockStem;
+import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.BlockVine;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.oredict.OreDictionary;
+
+@Mod(
+		modid = Reference.MOD_ID,
+		name = Reference.MOD_NAME,
+		version = Reference.VERSION_NUMBER,
+		dependencies = Reference.DEPENDENCIES,
+		guiFactory = "fr.nemaria.mods.future.configuration.ConfigGuiFactory"
+)
+
+public class Nemaria {
+
+	@Instance("nemaria")
+	public static Nemaria instance;
+
+	@SidedProxy(clientSide = "fr.nemaria.mods.proxy.ClientProxy", serverSide = "fr.nemaria.mods.proxy.CommonProxy")
+	public static CommonProxy proxy;
+
+	public static SimpleNetworkWrapper networkWrapper;
+
+	
+
+	@EventHandler
+	public void onConstruction(FMLConstructionEvent event) {
+		MCLib.init();
+
+		ADConfig config = new ADConfig();
+
+		getSounds(config);
+
+		AssetDirectorAPI.register(config);
+	}
+
+	static final String NETHER_FORTRESS = "netherFortress";
+	private Field fortressWeightedField;
+
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		try {
+			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
+			chestInfo.setAccessible(true);
+			if (!((HashMap<String, ChestGenHooks>) chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
+				fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
+				fortressWeightedField.setAccessible(true);
+				((HashMap<String, ChestGenHooks>) chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
+			}
+		} catch (Exception e) {
+			System.out.println("Failed to get Nether fortress loot table:");
+			e.printStackTrace();
+		}
+
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).preInitAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).preInitAction();
+			}
+		}
+
+		ModBlocks.init();
+		ModItems.init();
+		ModEnchantments.init();
+		ModPotions.init();
+		SpectatorMode.init();
+
+		if (event.getSide() == Side.CLIENT) {
+
+			if (ConfigFunctions.enableNewTextures || ConfigFunctions.enableLangReplacements) {
+				BuiltInResourcePack.register("vanilla_overrides");
+			}
+
+			GrayscaleWaterResourcePack.inject();
+
+			DynamicSoundsResourcePack.inject();
+		}
+
+		if (ConfigExperiments.netherDimensionProvider) {
+			NetherBiomeManager.init();
+		}
+
+		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
+		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
+
+		OceanMonument.makeMap();
+
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
+		networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
+		networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
+		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);
+		networkWrapper.registerMessage(BoatMoveHandler.class, BoatMoveMessage.class, 4, Side.SERVER);
+		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
+		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
+		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
+
+		setupModMeta(event.getModMetadata());
+
+	}
+
+	private void setupModMeta(ModMetadata meta) {
+		//Define mod data here instead of in mcmod.info, adapted from Village Names.
+		//Thanks AstroTibs!
+		//Updated by Makamys to use mcmod.info again but also have color values without glitches.
+
+		meta.autogenerated = false; // stops it from complaining about missing mcmod.info
+
+		meta.name = "\u00a75\u00a7o" + Reference.MOD_NAME; // name 
+
+		String buildVer = Reference.BUILD_VERSION = meta.version;
+		Reference.SNAPSHOT_BUILD = buildVer.toLowerCase().contains("snapshot") || buildVer.contains("alpha") || buildVer.toLowerCase().contains("beta") || buildVer.toLowerCase().contains("rc");
+		meta.version = "\u00a7e" + meta.version; // version (read from mcmod.info)
+
+		meta.credits = Reference.CREDITS; // credits 
+
+		meta.authorList.clear();
+		meta.authorList.addAll(Arrays.asList(Reference.AUTHOR_LIST)); // authorList - added as a list
+
+		meta.url = Reference.MOD_URL;
+
+		meta.description = Reference.DESCRIPTION; // description
+
+
+		meta.logoFile = Reference.LOGO_FILE;
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).initAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).initAction();
+			}
+		}
+
+	
+
+		proxy.registerEvents();
+		proxy.registerEntities();
+		proxy.registerRenderers();
+
+	}
+
+	@EventHandler
+	public void processIMCRequests(IMCEvent event) {
+		for (IMCMessage message : event.getMessages()) {
+			if (message.key.equals("register-brewing-fuel")) {
+				NBTTagCompound nbt = message.getNBTValue();
+				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Fuel"));
+				int brews = nbt.getInteger("Brews");
+				BrewingFuelRegistry.registerFuel(stack, brews);
+			}
+		}
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		if (ConfigFunctions.enableUpdatedFoodValues) {
+			((ItemFood) Items.carrot).healAmount = 3;
+			((ItemFood) Items.baked_potato).healAmount = 5;
+		}
+
+		if (ConfigFunctions.enableUpdatedHarvestLevels) {
+			Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
+			Blocks.ladder.setHarvestLevel("axe", 0);
+			Blocks.melon_block.setHarvestLevel("axe", 0);
+		}
+
+		if (ConfigFunctions.enableFloatingTrapDoors) {
+			BlockTrapDoor.disableValidation = true;
+		}
+
+
+		Items.blaze_rod.setFull3D();
+		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
+
+		if (ConfigBlocksItems.enableOtherside) {
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
+		}
+
+		if (ConfigBlocksItems.enablePigstep) {
+			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.PIGSTEP_RECORD.get(), 0, 1, 1, 5));
+
+			if (fortressWeightedField != null) {
+				try {
+					Field contents = ChestGenHooks.class.getDeclaredField("contents");
+					contents.setAccessible(true);
+					ArrayList<WeightedRandomChestContent> fortressContentList;
+					fortressContentList = (ArrayList<WeightedRandomChestContent>) contents.get(ChestGenHooks.getInfo("netherFortress"));
+					if (!fortressContentList.isEmpty()) {
+						WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
+						for (int i = 0; i < fortressContentList.size(); i++) {
+							fortressChest[i] = fortressContentList.get(i);
+						}
+						fortressWeightedField.set(null, fortressChest);
+					}
+				} catch (Exception e) {
+					System.out.println("Failed to fill Nether fortress loot table:");
+					e.printStackTrace();
+				}
+			}
+		}
+
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).postInitAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).postInitAction();
+			}
+		}
+
+	
+
+		NemariaLootTables.init();
+
+		ModRecipes.init();
+		DeepslateOreRegistry.init();
+		StrippedLogRegistry.init();
+		RawOreRegistry.init();
+		SmithingTableRecipes.init();
+		CompostingRegistry.init();
+		BeePlantRegistry.init();
+		PistonBehaviorRegistry.init();
+
+	}
+
+	@EventHandler
+	public void onLoadComplete(FMLLoadCompleteEvent e) {
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).onLoadAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).onLoadAction();
+			}
+		}
+
+		ConfigBase.postInit();
+
+		EtFuturumWorldGenerator.INSTANCE.postInit();
+		WorldEventHandler.INSTANCE.postInit();
+
+		if (ConfigSounds.newBlockSounds) {
+			Blocks.jukebox.setStepSound(Block.soundTypeWood);
+			Blocks.noteblock.setStepSound(Block.soundTypeWood);
+			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
+			Blocks.light_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
+			Blocks.tripwire_hook.setStepSound(Block.soundTypeWood);
+			Blocks.lever.setStepSound(Block.soundTypeStone);
+			Blocks.powered_repeater.setStepSound(Block.soundTypeStone);
+			Blocks.unpowered_repeater.setStepSound(Block.soundTypeStone);
+			Blocks.powered_comparator.setStepSound(Block.soundTypeStone);
+			Blocks.unpowered_comparator.setStepSound(Block.soundTypeStone);
+			Blocks.sponge.setStepSound(ModSounds.soundSponge);
+		}
+		if (ConfigSounds.paintingItemFramePlacing) {
+			Block block = GameRegistry.findBlock("torchLevers", "paintingDoor");
+			if(block != null) {
+				block.stepSound = ModSounds.soundPainting;
+			}
+		}
+		if (ConfigBlocksItems.enableDyedBeds) {
+			Blocks.bed.blockMaterial = Material.wood;
+			Blocks.bed.setStepSound(Block.soundTypeWood);
+		}
+
+		//Block registry iterator
+		for (Block block : (Iterable<Block>) Block.blockRegistry) {
+			if (ConfigFunctions.enableHoeMining) {
+				if (block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
+						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
+					HoeRegistry.addToHoeArray(block);
+				}
+				HoeRegistry.addToHoeArray(ModBlocks.SHROOMLIGHT.get());
+				HoeRegistry.addToHoeArray(ModBlocks.SPONGE.get());
+			}
+
+			if (ConfigSounds.newBlockSounds) {
+				/*
+				 * SOUNDS
+				 */
+				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
+
+				SoundType sound = getCustomStepSound(block, blockID);
+				if (sound != null) {
+					block.setStepSound(sound);
+				}
+
+				setupMultiBlockSoundRegistry();
+			}
+		}
+
+
+		if (ConfigExperiments.netherDimensionProvider && !ModsList.NETHERLICIOUS.isLoaded()) {
+			DimensionProviderEFRNether.init();
+		}
+
+		if (ConfigExperiments.endDimensionProvider) {
+			DimensionProviderEFREnd.init(); // Come back to
+		}
+	}
+
+	private void setupMultiBlockSoundRegistry() {
+		{
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(6, ModSounds.soundNetherBricks);
+			mbs.setTypes(14, ModSounds.soundNetherBricks);
+			MultiBlockSoundRegistry.multiBlockSounds.put(Blocks.stone_slab, mbs);
+			MultiBlockSoundRegistry.multiBlockSounds.put(Blocks.double_stone_slab, mbs);
+		}
+
+		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
+			{
+				BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+				mbs.setTypes(2, ModSounds.soundNetherrack);
+				mbs.setTypes(9, ModSounds.soundBoneBlock);
+				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrick"), mbs);
+				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy"), mbs);
+			}
+			{
+				BasicMultiBlockSound mbs = new BasicMultiBlockSound() {
+					@Override
+					public float getPitch(World world, int x, int y, int z, float pitch, MultiBlockSoundRegistry.BlockSoundType type) {
+						if (type != MultiBlockSoundRegistry.BlockSoundType.WALK) {
+							return pitch * .67F;
+						}
+						return 1;
+					}
+				};
+				mbs.setTypes(3, ModSounds.soundCopper);
+				mbs.setTypes(5, ModSounds.soundCopper);
+				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "MetalBlock"), mbs);
+			}
+		}
+
+		if (ModBlocks.DEEPSLATE_BRICK_WALL.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundDeepslateTiles);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICK_WALL.get(), mbs);
+		}
+
+		if (ModBlocks.DEEPSLATE_BRICKS.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(2, ModSounds.soundDeepslateTiles);
+			mbs.setTypes(3, ModSounds.soundDeepslateTiles);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICKS.get(), mbs);
+		}
+
+		if (ModBlocks.DEEPSLATE_BRICK_SLAB.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundDeepslateTiles);
+			mbs.setTypes(9, ModSounds.soundDeepslateTiles);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICK_SLAB.get(), mbs);
+		}
+
+		if (ModBlocks.AMETHYST_CLUSTER_1.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			for (int i = 0; i < 6; i++) {
+				mbs.setTypes(i, ModSounds.soundAmethystBudSmall);
+			}
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_1.get(), mbs);
+		}
+
+		if (ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			for (int i = 0; i < 6; i++) {
+				mbs.setTypes(i, ModSounds.soundAmethystBudLrg);
+			}
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_2.get(), mbs);
+		}
+
+		if (ModBlocks.SPONGE.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundWetSponge);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SPONGE.get(), mbs);
+		}
+
+		if (ModBlocks.SAPLING.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundCherrySapling);
+			mbs.setTypes(9, ModSounds.soundCherrySapling);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SAPLING.get(), mbs);
+		}
+
+		if (ModBlocks.LEAVES.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundCherryLeaves);
+			mbs.setTypes(5, ModSounds.soundCherryLeaves);
+			mbs.setTypes(9, ModSounds.soundCherryLeaves);
+			mbs.setTypes(13, ModSounds.soundCherryLeaves);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.LEAVES.get(), mbs);
+		}
+
+		{
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(0, ModSounds.soundNetherWood);
+			mbs.setTypes(1, ModSounds.soundNetherWood);
+			mbs.setTypes(3, ModSounds.soundCherryWood);
+			mbs.setTypes(4, ModSounds.soundBambooWood);
+
+			if (ModBlocks.WOOD_PLANKS.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_PLANKS.get(), mbs);
+			}
+
+			if (ModBlocks.WOOD_FENCE.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_FENCE.get(), mbs);
+			}
+		}
+
+		{
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(0, ModSounds.soundNetherWood);
+			mbs.setTypes(1, ModSounds.soundNetherWood);
+			mbs.setTypes(3, ModSounds.soundCherryWood);
+			mbs.setTypes(4, ModSounds.soundBambooWood);
+
+			mbs.setTypes(8, ModSounds.soundNetherWood);
+			mbs.setTypes(9, ModSounds.soundNetherWood);
+			mbs.setTypes(11, ModSounds.soundCherryWood);
+			mbs.setTypes(12, ModSounds.soundBambooWood);
+
+			if (ModBlocks.WOOD_SLAB.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_SLAB.get(), mbs);
+			}
+
+			if (ModBlocks.DOUBLE_WOOD_SLAB.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
+			}
+		}
+
+		if (ModBlocks.PACKED_MUD.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundMudBricks);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.PACKED_MUD.get(), mbs);
+		}
+	}
+
+
+	@EventHandler
+	public void onMissingMapping(FMLMissingMappingsEvent e) {
+		for (FMLMissingMappingsEvent.MissingMapping mapping : e.getAll()) {
+			if (mapping.name.startsWith("etfuturum") || mapping.name.startsWith("nemaria")) {
+				if (Block.getBlockById(mapping.id) != null && mapping.type == GameRegistry.Type.ITEM) {
+					mapping.ignore();
+					ReflectionHelper.setPrivateValue(FMLMissingMappingsEvent.MissingMapping.class, mapping, FMLMissingMappingsEvent.Action.BLOCKONLY, "action");
+				}
+			}
+		}
+	}
+
+
+	public SoundType getCustomStepSound(Block block, String namespace) {
+		if (block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
+			if (namespace.contains("nether") && namespace.contains("brick")) {
+				return ModSounds.soundNetherBricks;
+			} else if (namespace.contains("netherrack") || namespace.contains("hellfish")) {
+				return ModSounds.soundNetherrack;
+			} else if (block == Blocks.quartz_ore || (namespace.contains("nether") && (block instanceof BlockOre || namespace.contains("ore")))) {
+				return ModSounds.soundNetherOre;
+			} else if (namespace.contains("deepslate")) {
+				return namespace.contains("brick") ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate;
+			} else if (block instanceof BlockNetherWart || (namespace.contains("nether") && namespace.contains("wart"))) {
+				return ModSounds.soundCropWarts;
+			} else if (namespace.contains("bone") || namespace.contains("ivory")) {
+				return ModSounds.soundBoneBlock;
+			}
+		}
+
+		if (block.stepSound == Block.soundTypeGrass) {
+			if (block instanceof BlockVine) {
+				return ModSounds.soundVines;
+			}
+
+			if (block instanceof BlockLilyPad) {
+				return ModSounds.soundWetGrass;
+			}
+		}
+
+		if (block instanceof BlockCrops || block instanceof BlockStem) {
+			return ModSounds.soundCrops;
+		}
+
+		if (block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
+			return ModSounds.soundSoulSand;
+		}
+
+		if (block.stepSound == Block.soundTypeMetal && (namespace.contains("copper") || namespace.contains("tin"))) {
+			return ModSounds.soundCopper;
+		}
+
+		if (block.getMaterial() == Material.iron && block instanceof BlockHopper) {
+			return Block.soundTypeMetal;
+		}
+
+		return null;
+	}
+
+	@EventHandler
+	public void serverStarting(FMLServerStartingEvent event) {
+		if (ConfigFunctions.enableFillCommand) {
+			event.registerServerCommand(new CommandFill());
+		}
+		if (ConfigMixins.enableSpectatorMode) {
+			event.registerServerCommand(new CommandGameMode());
+		}
+	}
+
+	/**
+	 * Utility for running string.contains() on a list of strings.
+	 */
+	public static boolean stringListContainsPhrase(Set<String> set, String string) {
+		for (String stringInSet : set) {
+			if (string.contains(stringInSet)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static List<String> getOreStrings(ItemStack stack) {
+		final List<String> list = new ArrayList<>();
+		for (int oreID : OreDictionary.getOreIDs(stack)) {
+			list.add(OreDictionary.getOreName(oreID));
+		}
+		return list;
+	}
+
+	public static boolean hasDictTag(Block block, String... tags) {
+		return hasDictTag(new ItemStack(block), tags);
+	}
+
+	public static boolean hasDictTag(Item item, String... tags) {
+		return hasDictTag(new ItemStack(item), tags);
+	}
+
+	public static boolean hasDictTag(ItemStack stack, String... tags) {
+		for (String oreName : getOreStrings(stack)) {
+			if (ArrayUtils.contains(tags, oreName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean dictTagsStartWith(Block block, String stringToFind) {
+		return dictTagsContain(new ItemStack(block), stringToFind);
+	}
+
+	public static boolean dictTagsStartWith(Item item, String stringToFind) {
+		return dictTagsContain(new ItemStack(item), stringToFind);
+	}
+
+	public static boolean dictTagsStartWith(ItemStack stack, String stringToFind) {
+		for (String oreName : getOreStrings(stack)) {
+			if (oreName.startsWith(stringToFind)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean dictTagsContain(Block block, String stringToFind) {
+		return dictTagsContain(new ItemStack(block), stringToFind);
+	}
+
+	public static boolean dictTagsContain(Item item, String stringToFind) {
+		return dictTagsContain(new ItemStack(item), stringToFind);
+	}
+
+	public static boolean dictTagsContain(ItemStack stack, String stringToFind) {
+		for (String oreName : getOreStrings(stack)) {
+			if (oreName.contains(stringToFind)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static PotionEffect getSuspiciousStewEffect(ItemStack stack) {
+
+		if (stack == null)
+			return null;
+
+		Item item = stack.getItem();
+
+		if (item == Item.getItemFromBlock(Blocks.red_flower)) {
+			switch (stack.getItemDamage()) {
+				default:
+				case 0:
+					return new PotionEffect(Potion.nightVision.id, 100, 0);
+				case 1:
+					return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+				case 2:
+					return new PotionEffect(Potion.fireResistance.id, 80, 0);
+				case 3:
+					return new PotionEffect(Potion.blindness.id, 160, 0);
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+					return new PotionEffect(Potion.weakness.id, 180, 0);
+				case 8:
+					return new PotionEffect(Potion.regeneration.id, 160, 0);
+			}
+		}
+
+		if (item == Item.getItemFromBlock(Blocks.yellow_flower)) {
+			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+		}
+
+		if (item == Item.getItemFromBlock(ModBlocks.CORNFLOWER.get())) {
+			return new PotionEffect(Potion.jump.id, 120, 0);
+		}
+
+		if (item == Item.getItemFromBlock(ModBlocks.LILY_OF_THE_VALLEY.get())) {
+			return new PotionEffect(Potion.poison.id, 240, 0);
+		}
+
+		if (item == Item.getItemFromBlock(ModBlocks.WITHER_ROSE.get())) {
+			return new PotionEffect(Potion.wither.id, 160, 0);
+		}
+		return null;
+	}
+
+	private static void getSounds(ADConfig config) {
+		String ver = Reference.MCAssetVer.split("_")[1];
+		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
+		config.addObject(ver, "minecraft/sounds/ambient/cave/cave15.ogg");
+		config.addObject(ver, "minecraft/sounds/ambient/cave/cave16.ogg");
+		config.addObject(ver, "minecraft/sounds/ambient/cave/cave17.ogg");
+		config.addObject(ver, "minecraft/sounds/ambient/cave/cave18.ogg");
+		config.addObject(ver, "minecraft/sounds/ambient/cave/cave19.ogg");
+
+		config.addSoundEvent(ver, "weather.rain", "weather");
+		config.addSoundEvent(ver, "weather.rain.above", "weather");
+
+		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
+		config.addSoundEvent(ver, "ambient.nether_wastes.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.nether_wastes.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.nether_wastes.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.crimson_forest", "music");
+		config.addSoundEvent(ver, "ambient.crimson_forest.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.crimson_forest.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.crimson_forest.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.warped_forest", "music");
+		config.addSoundEvent(ver, "ambient.warped_forest.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.warped_forest.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.warped_forest.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.soul_sand_valley", "music");
+		config.addSoundEvent(ver, "ambient.soul_sand_valley.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.soul_sand_valley.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.soul_sand_valley.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.basalt_deltas", "music");
+		config.addSoundEvent(ver, "ambient.basalt_deltas.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.basalt_deltas.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.basalt_deltas.mood", "ambient");
+
+		config.addSoundEvent(ver, "music_disc.pigstep", "record");
+		config.addSoundEvent(ver, "music_disc.otherside", "record");
+
+		config.addSoundEvent(ver, "item.elytra.flying", "player");
+		config.addSoundEvent(ver, "enchant.thorns.hit", "player");
+		config.addSoundEvent(ver, "entity.boat.paddle_land", "player");
+		config.addSoundEvent(ver, "entity.boat.paddle_water", "player");
+		config.addSoundEvent(ver, "entity.rabbit.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.jump", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.attack", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.death", "neutral");
+		config.addSoundEvent(ver, "entity.zombie_villager.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.zombie_villager.step", "hostile");
+		config.addSoundEvent(ver, "entity.zombie_villager.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.zombie_villager.death", "hostile");
+		config.addSoundEvent(ver, "entity.husk.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.husk.step", "hostile");
+		config.addSoundEvent(ver, "entity.husk.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.husk.death", "hostile");
+		config.addSoundEvent(ver, "entity.zombie.converted_to_drowned", "hostile");
+		config.addSoundEvent(ver, "entity.husk.converted_to_zombie", "hostile");
+		config.addSoundEvent(ver, "entity.stray.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.stray.step", "hostile");
+		config.addSoundEvent(ver, "entity.stray.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.stray.death", "hostile");
+		config.addSoundEvent(ver, "entity.skeleton.converted_to_stray", "hostile");
+		config.addSoundEvent(ver, "entity.shulker_bullet.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.shulker_bullet.hit", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.open", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.close", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.shoot", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.hurt_closed", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.death", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.teleport", "hostile");
+		config.addSoundEvent(ver, "entity.snow_golem.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.snow_golem.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.snow_golem.death", "neutral");
+		config.addSoundEvent(ver, "entity.wither_skeleton.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.wither_skeleton.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.wither_skeleton.death", "hostile");
+		config.addSoundEvent(ver, "entity.wither_skeleton.step", "hostile");
+		config.addSoundEvent(ver, "entity.squid.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.squid.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.squid.death", "neutral");
+		config.addSoundEvent(ver, "entity.squid.squirt", "neutral");
+		config.addSoundEvent(ver, "entity.witch.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.witch.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.witch.death", "hostile");
+		config.addSoundEvent(ver, "entity.witch.drink", "hostile");
+		config.addSoundEvent(ver, "entity.item_frame.add_item", "player");
+		config.addSoundEvent(ver, "entity.item_frame.break", "player");
+		config.addSoundEvent(ver, "entity.item_frame.place", "player");
+		config.addSoundEvent(ver, "entity.item_frame.remove_item", "player");
+		config.addSoundEvent(ver, "entity.item_frame.rotate_item", "player");
+		config.addSoundEvent(ver, "entity.painting.break", "player");
+		config.addSoundEvent(ver, "entity.painting.place", "player");
+		config.addSoundEvent(ver, "entity.leash_knot.break", "player");
+		config.addSoundEvent(ver, "entity.leash_knot.place", "player");
+		config.addSoundEvent(ver, "entity.ender_eye.death", "neutral");
+		config.addSoundEvent(ver, "entity.ender_eye.launch", "neutral");
+		config.addSoundEvent(ver, "entity.fishing_bobber.retrieve", "neutral");
+		config.addSoundEvent(ver, "entity.fishing_bobber.throw", "neutral");
+		config.addSoundEvent(ver, "entity.horse.eat", "neutral");
+		config.addSoundEvent(ver, "entity.cow.milk", "neutral");
+		config.addSoundEvent(ver, "entity.mooshroom.milk", "neutral");
+		config.addSoundEvent(ver, "entity.mooshroom.convert", "neutral");
+		config.addSoundEvent(ver, "entity.bee.loop", "neutral");
+		config.addSoundEvent(ver, "entity.bee.loop_aggressive", "neutral");
+		config.addSoundEvent(ver, "entity.bee.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.bee.death", "neutral");
+		config.addSoundEvent(ver, "entity.bee.pollinate", "neutral");
+		config.addSoundEvent(ver, "entity.bee.sting", "neutral");
+
+
+		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
+		config.addSoundEvent(ver, "entity.player.hurt_drown", "player");
+		config.addSoundEvent(ver, "entity.player.hurt_sweet_berry_bush", "player");
+		config.addSoundEvent(ver, "entity.player.attack.crit", "player");
+		config.addSoundEvent(ver, "entity.player.attack.knockback", "player");
+		config.addSoundEvent(ver, "entity.player.attack.nodamage", "player");
+		config.addSoundEvent(ver, "entity.player.attack.strong", "player");
+		config.addSoundEvent(ver, "entity.player.attack.sweep", "player");
+		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
+		config.addSoundEvent(ver, "entity.player.splash.high_speed", "player");
+
+		config.addSoundEvent(ver, "item.axe.scrape", "player");
+		config.addSoundEvent(ver, "item.axe.wax_off", "player");
+		config.addSoundEvent(ver, "item.axe.strip", "player");
+		config.addSoundEvent(ver, "item.hoe.till", "player");
+		config.addSoundEvent(ver, "item.honeycomb.wax_on", "player");
+		config.addSoundEvent(ver, "item.totem.use", "player");
+		config.addSoundEvent(ver, "item.shovel.flatten", "player");
+		config.addSoundEvent(ver, "item.chorus_fruit.teleport", "player");
+		config.addSoundEvent(ver, "item.book.page_turn", "player");
+		config.addSoundEvent(ver, "item.bucket.fill", "player");
+		config.addSoundEvent(ver, "item.bucket.fill_lava", "player");
+		config.addSoundEvent(ver, "item.bucket.empty", "player");
+		config.addSoundEvent(ver, "item.bucket.empty_lava", "player");
+		config.addSoundEvent(ver, "item.bottle.fill", "player");
+		config.addSoundEvent(ver, "item.bottle.empty", "player");
+		config.addSoundEvent(ver, "item.bone_meal.use", "player");
+		config.addSoundEvent(ver, "item.honey_bottle.drink", "player");
+
+		config.addSoundEvent(ver, "item.armor.equip_leather", "player");
+		config.addSoundEvent(ver, "item.armor.equip_gold", "player");
+		config.addSoundEvent(ver, "item.armor.equip_chain", "player");
+		config.addSoundEvent(ver, "item.armor.equip_iron", "player");
+		config.addSoundEvent(ver, "item.armor.equip_diamond", "player");
+		config.addSoundEvent(ver, "item.armor.equip_netherite", "player");
+		config.addSoundEvent(ver, "item.armor.equip_turtle", "player");
+		config.addSoundEvent(ver, "item.armor.equip_generic", "player");
+		config.addSoundEvent(ver, "item.armor.equip_elytra", "player");
+
+		config.addSoundEvent(ver, "block.note_block.banjo", "record");
+		config.addSoundEvent(ver, "block.note_block.bell", "record");
+		config.addSoundEvent(ver, "block.note_block.bit", "record");
+		config.addSoundEvent(ver, "block.note_block.chime", "record");
+		config.addSoundEvent(ver, "block.note_block.cow_bell", "record");
+		config.addSoundEvent(ver, "block.note_block.didgeridoo", "record");
+		config.addSoundEvent(ver, "block.note_block.flute", "record");
+		config.addSoundEvent(ver, "block.note_block.guitar", "record");
+		config.addSoundEvent(ver, "block.note_block.harp", "record");
+		config.addSoundEvent(ver, "block.note_block.iron_xylophone", "record");
+		config.addSoundEvent(ver, "block.note_block.xylophone", "record");
+
+		config.addSoundEvent(ver, "block.barrel.open", "block");
+		config.addSoundEvent(ver, "block.barrel.close", "block");
+		config.addSoundEvent(ver, "block.chorus_flower.grow", "block");
+		config.addSoundEvent(ver, "block.chorus_flower.death", "block");
+		config.addSoundEvent(ver, "block.end_portal.spawn", "ambient");
+		config.addSoundEvent(ver, "block.end_portal_frame.fill", "block");
+		config.addSoundEvent(ver, "block.shulker_box.open", "block");
+		config.addSoundEvent(ver, "block.shulker_box.close", "block");
+		config.addSoundEvent(ver, "block.sweet_berry_bush.pick_berries", "player");
+		config.addSoundEvent(ver, "block.brewing_stand.brew", "block");
+		config.addSoundEvent(ver, "block.furnace.fire_crackle", "block");
+		config.addSoundEvent(ver, "block.blastfurnace.fire_crackle", "block");
+		config.addSoundEvent(ver, "block.smoker.smoke", "block");
+		config.addSoundEvent(ver, "block.chest.close", "block");
+		config.addSoundEvent(ver, "block.ender_chest.open", "block");
+		config.addSoundEvent(ver, "block.ender_chest.close", "block");
+		config.addSoundEvent(ver, "block.composter.empty", "block");
+		config.addSoundEvent(ver, "block.composter.fill", "block");
+		config.addSoundEvent(ver, "block.composter.fill_success", "block");
+		config.addSoundEvent(ver, "block.composter.ready", "block");
+		config.addSoundEvent(ver, "block.amethyst_block.hit", "block");
+		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
+		config.addSoundEvent(ver, "block.smithing_table.use", "player");
+		config.addSoundEvent(ver, "block.enchantment_table.use", "player");
+		config.addSoundEvent(ver, "block.beacon.activate", "block");
+		config.addSoundEvent(ver, "block.beacon.ambient", "block");
+		config.addSoundEvent(ver, "block.beacon.deactivate", "block");
+		config.addSoundEvent(ver, "block.beacon.power_select", "block");
+		config.addSoundEvent(ver, "block.honey_block.slide", "neutral");
+		config.addSoundEvent(ver, "block.beehive.drip", "block");
+		config.addSoundEvent(ver, "block.beehive.enter", "neutral");
+		config.addSoundEvent(ver, "block.beehive.exit", "neutral");
+		config.addSoundEvent(ver, "block.beehive.work", "neutral");
+		config.addSoundEvent(ver, "block.beehive.shear", "player");
+		config.addSoundEvent(ver, "block.sponge.absorb", "block");
+
+		config.addSoundEvent(ver, "block.fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.nether_wood_fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.nether_wood_fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.close", "block");
+
+		config.addSoundEvent(ver, "block.wooden_door.open", "block");
+		config.addSoundEvent(ver, "block.wooden_door.close", "block");
+		config.addSoundEvent(ver, "block.nether_wood_door.open", "block");
+		config.addSoundEvent(ver, "block.nether_wood_door.close", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_door.open", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_door.close", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_door.open", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_door.close", "block");
+		config.addSoundEvent(ver, "block.iron_door.open", "block");
+		config.addSoundEvent(ver, "block.iron_door.close", "block");
+
+		config.addSoundEvent(ver, "block.wooden_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.wooden_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.nether_wood_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.nether_wood_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
+
+		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
+		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");
+		config.addSoundEvent(ver, "block.nether_wood_button.click_off", "block");
+		config.addSoundEvent(ver, "block.nether_wood_button.click_on", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_button.click_off", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_button.click_on", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_button.click_off", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_button.click_on", "block");
+
+		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.nether_wood_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.nether_wood_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.cherry_wood_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.metal_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.metal_pressure_plate.click_on", "block");
+
+		//Automatically register block sounds for AssetDirector, but only if they contain the MC version (which means it needs to be registered here)
+		//Then we remove the mc version prefix and register that sound.
+
+		for (ModSounds.CustomSound sound : ModSounds.getSounds()) {
+			if (sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
+				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Reference.MCAssetVer.length() + 1), "neutral");
+			}
+			if (sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
+				config.addSoundEvent(ver, sound.func_150496_b().substring(Reference.MCAssetVer.length() + 1), "block");
+			}
+			if (sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
+				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");
+			}
+		}
+	}
+}

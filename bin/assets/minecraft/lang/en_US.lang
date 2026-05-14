@@ -1,0 +1,318 @@
+###################
+#     items       #
+###################
+item.NemariumIngot.name=Nemarium Ingot
+item.AzuriumIngot.name=Azurium Ingot
+item.LegendaryIngot.name=Legendary Ingot
+item.Nemarium_Axe.name=Nemarium Axe
+item.NemariumPickaxe.name=Nemarium Pickaxe
+item.NemariumShovel.name=Nemarium Shovel
+item.NemariumSword.name=Nemarium Sword
+item.LegendarymSword.name=Legendary Sword
+item.Money.name=Money
+item.AzuriumSword.name=Azurium Sword
+item.AzuriumPickaxe.name=Azurium Pickaxe
+item.AzuriumAxe.name=Azurium Axe
+item.AzuriumShovel.name=Azurium Shovel
+item.AzuriumHammer.name=Azurium Hammer
+item.NemariumHelmet.name=Nemarium Helmet
+item.NemariumChestplate.name=Nemarium Chestplate
+item.NemariumLeggigns.name=Nemarium Leggings
+item.NemariumBoots.name=Nemarium Boots
+item.ChestFinder.name=Chest Finder
+item.LegendaryHelmet.name=Legendary Helmet
+item.LegendaryChestplate.name=Legendary Chestplate
+item.LegendaryLeggigns.name=Legendary Leggigns
+item.LegendaryBoots.name=Legendary Boots
+item.AzuriumHelmet.name=Azurium Helmet
+item.AzuriumChestplate.name=Azurium Chestplate
+item.AzuriumLeggings.name=Azurium Leggings
+item.AzuriumBoots.name=Azurium Boots
+item.multiToolMod.name=MultiTool
+item.LegendarySword.name=Legendary Sword
+item.LegendaryPickaxe.name=Legendary Pickaxe
+item.LegendaryAxe.name=Legendary Axe
+item.LegendaryShovel.name=Legendary Shovel
+item.TitaneHelmet.name=Titane Helmet
+item.TitaneChestplate.name=Titane Chestplate
+item.TitaneLeggigns.name=Titane Leggigns
+item.TitaneBoots.name=Titane Boots
+item.TitaneIngot.name=Titane Ingot
+item.TitaneSword.name=Titane Sword
+item.TitanePickaxe.name=Titane Pickaxe
+item.TitaneAxe.name=Titane Axe
+item.TitaneShovel.name=Titane Shovel
+item.VoteKey.name=VoteKey
+item.Aubergine.name=Aubergine
+item.AubergineSeed.name=Aubergine Seeds
+item.healstick.name=HealStick
+item.NemariumApple.name=Nemarium Apple
+item.SilithiumIngot.name=Silithium Ingot
+item.SilithiumNeget.name=Silithium Neget
+item.SilithiumHelmet.name=Silithium Helmet
+item.SilithiumChestplate.name=Silithium Chestplate
+item.SilithiumLeggigns.name=Silithium Leggigns
+item.SilithiumBoots.name=Silithium Boots
+item.muttonraw.name=Mutton Raw
+item.muttoncooked.name=Mutton Cooked
+item.rabbitraw.name=Rabbit Raw
+item.rabbitcooked.name=Rabbit Cooked
+item.rabbithide.name=Rabbit Hide
+item.rabbitfoot.name=Rabbit Foot
+item.kebab.name=Kebab
+item.gemofaquas.name=Gem Of Aquas g
+item.SringGold.name=Sring Gold
+item.Dynamite.name=Dynamite
+item.NemariumBow.name=Nemarium Bow
+item.NemariumHead.name=Nemarium Head
+item.NemariumHammer.name=Nemarium Hammer
+item.NemariumStick.name=Nemarium Stick
+item.Azurien.name=Azurien
+item.Nemarien.name=Nemarien
+item.Titan.name=Titan
+item.NemariumCore.name=Nemarium Core
+item.AzuriumHammer.name=Azurium Hammer
+item.LegendaryHammer.name=Legendary Hammer
+item.TitaneHammer.name=Titane Hammer
+item.IronHammer.name=Iron Hammer
+item.GoldHammer.name=Gold Hammer
+item.DiamondHammer.name=Diamond Hammer
+item.AubrgineSeed.name=Aubrgine Seeds
+item.Laitue.name=Laitue
+item.LaitueSeed.name=Laitue Seed
+item.LegendaryBow.name=Legendary Bow
+item.Nemarium_carrots.name=Nemarium Carrots
+item.NemariumCarrots_seed.name=Nemarium Carrots Seed
+item.Nemarium_Fragment.name=Nemarium Fragment
+item.Nemarium_Helmet_Blue.name=Nemarium Blue Helmet 
+item.Nemarium_Chestplate_Blue.name=Nemarium Blue Chestplate 
+item.Nemarium_Leggigns_Blue.name=Nemarium Blue Leggigns 
+item.Nemarium_Boots_Blue.name=Nemarium Blue Boots 
+item.NemariumSwordBlue.name=Nemarium Blue Sword
+item.NemariumPickaxeBlue.name=Nemarium Blue Pickaxe
+item.NemariumAxeBlue.name=Nemarium Blue Axe
+item.NemariumShovelBlue.name=Nemarium Blue Shovel
+item.Nemariumblueingot.name=Nemarium Blue
+item.grenade.name=Grenade
+item.FarmAxe.name=Farmite Axe
+item.AxeNow.name=Chain Saw
+item.CanabisSeed.name=Cannabis Seeds
+item.Cannabisleaf.name=Cannabis
+item.Cannabissachet.name=Cannabis Sachet
+item.cannabisboullet.name=Beuh
+item.Joint.name=Joint
+item.WitherSummon.name=Wither Summon
+item.dynamite.name=Dynamite
+item.SilithiumSword.name=Silithium Sword
+item.SilithiumPickaxe.name=Silithium Pickaxe
+item.SilithuimAxe.name=Silithuim Axe
+item.SilithuimShovel.name=Silithuim Shovel
+item.SilithumHammer.name=Silithum Hammer
+item.backPack.name=backPack
+item.speedstick.name=Speed Stick
+item.DailyKey.name=Daily Key
+item.Faction1.name=Sword Of Faction 1
+item.SpawnerKey.name=Spawner Key
+item.CarteResponsableR2.name=Carte Responsable R2
+item.CarteModoR1.name=Carte Modo R1
+item.CarteAdminR3.name=Carte Admin R3
+item.SilithiumSeeds.Name=Silithium Seeds
+item.PillageBoots.name=Pillage Boots
+item.PillageChestplate.name=Pillage Chestplate
+item.PillageHelmet.name=Pillage Helmet
+item.PillageLeggigns.name=Pillage Leggigns
+item.Epickey.name=Epic key
+item.Faction2.name=Sword Of Faction 2
+item.Faction3.name=Sword Of Faction 3
+item.Silithium_seeds.name=Silithium Seeds
+item.SilithiumseedsFragment.name=Silithium Seeds Fragment
+item.ExperienceBerry.name=Experience Berry
+item.raspberry.name=Raspberry
+item.raspberrySeed.name=Raspberry Seeds
+item.Ashes.name=Ashes Ingot
+item.AshesHelmet.name=Ashes Helmet
+item.AshesChestplate.name=Ashes Chestplate
+item.AshesLeggigns.name=Ashes Leggigns
+item.AshesBoots.name=Ashes Boots
+item.AshesSword.name=Ashes Sword
+item.shopkit.name=Shop Kit
+item.AshesDust.name=Ashes Dust
+item.LegendaryKey.name=Legendary Key
+item.DamageWather.name=Damage Wather
+item.Upgrade.name=Upgrade
+
+
+#Rare Items
+
+item.ring.name=Ring n°1
+item.ring2.name=Ring n°2
+item.ring3.name=Ring n°3
+item.ring4.name=Ring n°4
+item.ring5.name=Ring n°5
+item.ring6.name=Ring n°6
+item.ring7.name=Ring n°7
+item.ring8.name=Ring n°8
+item.ring9.name=Ring n°9
+item.ring10.name=Ring n°10
+item.ring11.name=Ring n°11
+item.ring12.name=Ring n°12
+item.ring13.name=Ring n°13
+
+#item1.8
+item.prismarinecrystals.name=Prismarine Crystals
+item.elytra.name=Elytra
+item.wooden_armorstand.name=Wooden Armorstand
+item.dragonbreath.name=Dragon Breath
+item.chorus_fruit.name=Chorus Fruit
+item.end_crystal.name=End Crystal
+tile.tipped_arrow.name=Tipped Arrow
+tile.lingering_potion.name=Lingering Potion
+
+
+####################
+#      block       #
+####################
+tile.NemariumBlock.name=Nemarium Block
+tile.NemariumOre.name=Nemarium Ore
+tile.AzuriumBlock.name=Azurium Block
+tile.AzuriumOre.name=Azurium Ore
+tile.LegendaryOre.name=legendary Ore
+tile.LegendaryBlock.name=Legendary Block
+tile.ObsidianRenforced.name=Obsidian Renforced
+tile.BlockXray.name=Block Xray
+tile.stoneandesite.name=Stone Andesite
+tile.TitanOre.name=Titane Ore
+tile.stoneandesitesmooth.name=Stone Andesite Smooth
+tile.stonediorite.name=Stone Diorite
+tile.stonedioritesmooth.name=Stone Diorite Smooth
+tile.TitaneBlock.name=Titane Block
+tile.stonegranite.name=Stone Granite
+tile.stonegranitesmooth.name=Stone Granite Smooth
+tile.NemariumStairs.name=Nemarium Stairs
+tile.NemariumSlabs.name=Nemarium Slabs
+tile.NemariumFurnace.name=Nemarium Furnace
+tile.XpOre.name=Xp Ore
+tile.TitaneOre.name=Titane Ore
+tile.TitaneStars.name=Titane Stars
+tile.TitaneSlabs.name=Titane Slabs
+tile.LegendaryStairs.name=Legendary Stairs
+tile.LegendarySlabs.name=Legendary Slabs
+tile.AzuriumStairs.name=Azurium Stairs
+tile.AzuriumSlabs.name=Azurium Slabs
+tile.strippedacacialog.name=Stripped Acacia Log
+tile.NemariumChest.name=Nemarium Chest
+tile.FertilizedDirt.name=Fertilized Dirt
+tile.RandomOre.name=Random Ore
+tile.strippedoaklog.name=Stripped Oak Log
+tile.logacacia.name=Acacia
+tile.log_big_oak.name=Oak big
+tile.log_birch.name=Birch
+tile.log_jungle.name=Jungle
+tile.log_oak.name=Oak
+tile.log_spruce.name=Spruce
+tile.slime.name=Slime Block
+tile.prismarine_dark.name=Prismarine Dark
+tile.prismarine_bricks.name=Prismarine Bricks
+tile.Laitue.name=Laitue
+tile.stripped_acacia_log.name=Stripped Acacia Log
+tile.stripped_birch_log.name=Stripped Birch Log
+tile.stripped_dark_oak_log.name=Stripped Dark Oak Log
+tile.stripped_spruce_log.name=Stripped Spruce Log
+tile.stripped_jungle_log.name=Stripped Jungle Log
+tile.boncepad.name=bounce Pad
+tile.NemariumOreBlue.name=Nemarium Blue Ore 
+tile.NemariumBlockBlue.name=Nemarium Blue Block 
+tile.MoneyOre.name=Money Ore
+tile.magma.name=Magma Block
+tile.Canabis.name=Cannabis
+tile.MeteorOre.name=Meteor Ore
+tile.SilithiumBlock.name=Silithium Block
+tile.Silithium.name=Silithium Crops
+tile.SilithiumFlowers.name=Silithium Flowers
+tile.ObsidanStairs.name=Obsidian Stairs
+tile.ObsidianSlabs.name=Obsidian Slabs
+tile.NemariumFurnace.name=Nemarium Furnace
+tile.invisibleblock.name=Invisible Block
+tile.XpBush.name=Xp Bush
+tile.damagewather.name=Damage Wather
+
+#concrete
+tile.concreteblack.name=Concrete Black
+tile.concreteblue.name=Concrete Blue
+tile.concretegray.name=Concrete Gray
+tile.concretebrown.name=Concrete Brown
+tile.concretecyan.name=Concrete Cyan
+tile.concretegreen.name=Concrete Green
+tile.concretelightblue.name=Concrete Light Blue
+tile.concretelime.name=Concrete Lime
+tile.concretemagenta.name=Concrete Magenta
+tile.concreteorange.name=Concrete Orange
+tile.concretepink.name=Concrete Pink
+tile.concretepurple.name=Concrete Purple
+tile.concretered.name=Concrete Red
+tile.concretesilver.name=Concrete Silver
+tile.concretewhite.name=Concrete White
+tile.concreteyellow.name=Concrete Yellow
+tile.brick_concrete.name=Brick Concrete
+tile.brick_light.name=Brick Light
+tile.brick_obsidian.name=Brick Obsidian
+tile.aubergine.name=Aubergine
+tile.Nemariumladder.name=Nemarium ladder
+tile.strippeddark.name=Stripped Dark Log
+tile.strippedbirch.name=Stripped Birch Log
+tile.strippedacacia.name=Stripped Acacia Log
+tile.strippedoak.name=Stripped Oak Log
+tile.strippedbirch.name=Stripped Birch Log
+tile.strippedspruce.name=Stripped Spruce Log
+tile.strippedjungle.name=Stripped Jungle Log
+
+#slime
+tile.slime_blue.name=Slime Blue
+tile.slime_green.name=Slime Green
+tile.slime_orange.name=Slime Orange
+tile.slime_purple.name=Slime Purple
+tile.slime_red.name=Slime Red
+
+#mc1.8
+tile.sponge.name=Sponge
+tile.sea_lantern.name=SeaLantern
+tile.chorus_flower.name=Chorus Flower
+tile.chorus_plant.name=Chorus Plant
+tile.end_rod.name=End Rod
+tile.iron_trapdoor.name=Iron Trapdoor
+tile.ObsidianTrapDoor.name=Obsidian Trapdoor
+tile.purpur_pillar.name=Purpur Pillar
+tile.purpur_block.name=Purpur Block
+tile.purpur_slab.name=Purpur Slab
+tile.purpur_stairs.name=Purpur Stairs
+tile.end_bricks.name=End Bricks
+tile.red_sandstone.name=Red Sandstone
+tile.red_sandstone_slab.name=Red Sandstone Slab
+tile.red_sandstone_stairs.name=Red Sandstone Stairs
+
+
+
+######################
+#   creativetab      #
+######################
+itemGroup.Nemaria_creative_tabs=Nemaria
+itemGroup.Decorative_tabs=Decorative
+itemGroup.Rare_tab=Items Rare
+itemGroup.Cultures_tabs=Culture
+
+
+#####################
+#    Entity         #
+#####################
+
+entity.Rabbit.name=Rabbit
+
+
+#####################
+#      Enchant      #
+#####################
+enchantment.deathbringer=Deathbringer
+enchantment.knocker=Knocker
+enchantment.implants=Implants
+enchantment.frost_walker=Frost Walker
+enchantment.mending=Mending

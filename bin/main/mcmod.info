@@ -1,0 +1,16 @@
+[
+{
+  "modid": "Nemariamod",
+  "name": "Nemariamod",
+  "description": "Mod principal du serveur de Nemaria",
+  "version": "3.0",
+  "mcversion": "1.7.10",
+  "url": "https://nemaria.ga",
+  "updateUrl": "",
+  "authorList": ["Vortexfr"],
+  "credits": "Toute distribution ou reproduction même partielle sans l'accord de l'équipe de développement de Nemaria est strictment interdite.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

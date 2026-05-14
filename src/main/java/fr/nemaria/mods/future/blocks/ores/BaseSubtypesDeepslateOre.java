@@ -1,0 +1,277 @@
+package fr.nemaria.mods.future.blocks.ores;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import fr.nemaria.mods.future.ModBlocks;
+import fr.nemaria.mods.future.api.mappings.RegistryMapping;
+import fr.nemaria.mods.future.blocks.BaseSubtypesBlock;
+import fr.nemaria.mods.future.client.sound.ModSounds;
+import fr.nemaria.mods.future.core.utils.DummyWorld;
+import fr.nemaria.mods.future.core.utils.IInitAction;
+import fr.nemaria.mods.future.lib.Reference;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock implements IInitAction {
+	private final float[] hardnesses;
+	private final float[] resistances;
+
+	public BaseSubtypesDeepslateOre(String... types) {
+		super(Material.rock, types);
+		setBlockSound(ModSounds.soundDeepslate);
+		hardnesses = new float[types.length];
+		resistances = new float[types.length];
+	}
+
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return checkDrop(new ItemStack(getBase(meta).getItemDropped(getBaseMeta(meta), rand, fortune), 1, fortune), meta).getItem();
+	}
+
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		ArrayList<ItemStack> list = getBase(metadata).getDrops(world, x, y, z, getBaseMeta(metadata), fortune);
+		list.forEach(itemStack -> this.checkDrop(itemStack, metadata));
+		return list;
+	}
+
+	//	@Override //TODO: Figure out how to capture meta in case a mod overrides these. Although it's unlikely this is needed so it's "FINE" for now
+//	public int quantityDropped(Random p_149745_1_) {
+//		return getBase().quantityDropped(p_149745_1_);
+//	}
+//
+//	@Override
+//	public int quantityDroppedWithBonus(int i, Random p_149745_1_) {
+//		return getBase().quantityDroppedWithBonus(i, p_149745_1_);
+//	}
+
+	@Override
+	public int quantityDropped(int meta, int fortune, Random random) {
+		return getBase(meta).quantityDropped(getBaseMeta(meta), fortune, random);
+	}
+
+	/**
+	 * Determines the damage on the item the block drops. Used in cloth and wood.
+	 */
+	@Override
+	public int damageDropped(int p_149692_1_) {
+		return getBase(p_149692_1_).damageDropped(getBaseMeta(p_149692_1_));
+	}
+
+	@Override
+	public int getExpDrop(IBlockAccess world, int metadata, int fortune) {
+		return getBase(metadata).getExpDrop(world, getBaseMeta(metadata), fortune);
+	}
+
+	@Override
+	public MapColor getMapColor(int p_149728_1_) {
+		return getBase(p_149728_1_).getMapColor(getBaseMeta(p_149728_1_));
+	}
+
+	/**
+	 * Called when a player hits the block. Args: world, x, y, z, player
+	 */
+	@Override
+	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer p_149699_5_) {
+		getBase(world.getBlockMetadata(x, y, z)).onBlockClicked(world, x, y, z, p_149699_5_);
+	}
+
+	/**
+	 * A randomly called display update to be able to add particles or other items for display
+	 */
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int x, int y, int z, Random p_149734_5_) {
+		getBase(world.getBlockMetadata(x, y, z)).randomDisplayTick(world, x, y, z, p_149734_5_);
+	}
+
+	/**
+	 * Called right before the block is destroyed by a player.  Args: world, x, y, z, metaData
+	 */
+	@Override
+	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metamaybe) {
+		//TODO, Assuming the last value is meta, make sure it's not side
+		getBase(metamaybe).onBlockDestroyedByPlayer(world, x, y, z, getBaseMeta(metamaybe));
+	}
+
+	/**
+	 * Can add to the passed in vector for a movement vector to be applied to the entity. Args: x, y, z, entity, vec3d
+	 */
+	@Override
+	public void velocityToAddToEntity(World world, int x, int y, int z, Entity p_149640_5_, Vec3 p_149640_6_) {
+		getBase(world.getBlockMetadata(x, y, z)).velocityToAddToEntity(world, x, y, z, p_149640_5_, p_149640_6_);
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return getBase(world.getBlockMetadata(x, y, z)).getLightValue();
+	}
+
+	/**
+	 * How bright to render this block based on the light its receiving. Args: iBlockAccess, x, y, z
+	 */
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getMixedBrightnessForBlock(IBlockAccess world, int x, int y, int z) {
+		return getBase(world.getBlockMetadata(x, y, z)).getMixedBrightnessForBlock(world, x, y, z);
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block p_149749_5_, int meta) {
+		getBase(meta).breakBlock(world, x, y, z, p_149749_5_, getBaseMeta(meta));
+	}
+
+	/**
+	 * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
+	 * TODO: Find a way to capture metadata then uncomment this
+	 */
+//	@Override
+//	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+//		return getBase(0).canPlaceBlockAt(world, x, y, z);
+//	}
+
+	/**
+	 * Called whenever the block is added into the world. Args: world, x, y, z
+	 */
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		getBase(world.getBlockMetadata(x, y, z)).onBlockAdded(world, x, y, z);
+	}
+
+	/**
+	 * Called whenever an entity is walking on top of this block. Args: world, x, y, z, entity
+	 */
+	@Override
+	public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
+		getBase(world.getBlockMetadata(x, y, z)).onEntityWalking(world, x, y, z, entity);
+	}
+
+	/**
+	 * Ticks the block if it's been scheduled
+	 */
+	@Override
+	public void updateTick(World world, int x, int y, int z, Random p_149674_5_) {
+		getBase(world.getBlockMetadata(x, y, z)).updateTick(world, x, y, z, p_149674_5_);
+	}
+
+	/**
+	 * Called upon block activation (right click on the block.)
+	 */
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+		return getBase(world.getBlockMetadata(x, y, z)).onBlockActivated(world, x, y, z, p_149727_5_, 0, 0.0F, 0.0F, 0.0F);
+	}
+
+	/**
+	 * Called upon the block being destroyed by an explosion
+	 */
+	@Override
+	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
+		getBase(world.getBlockMetadata(x, y, z)).onBlockDestroyedByExplosion(world, x, y, z, explosion);
+	}
+
+	@Override
+	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer) {
+		return getBase(meta).addDestroyEffects(world, x, y, z, getBaseMeta(meta), effectRenderer);
+	}
+
+	/**
+	 * Used to replace the base ore with the deepslate version in drop lists.
+	 * If it drops the base ore block, replace it with the base deepslate block (eg iron ore drop is swapped for deepslate iron ore drop)
+	 */
+	protected ItemStack checkDrop(ItemStack drop, int meta) {
+		Block droppedBlock = Block.getBlockFromItem(drop.getItem());
+		if (droppedBlock == getBase(meta)) {
+			Item thisAsItem = Item.getItemFromBlock(this);
+			if (thisAsItem != null) {
+				drop.func_150996_a(thisAsItem);
+				drop.itemDamage = meta;
+				return drop;
+			}
+		} else if (droppedBlock == Blocks.stone) {
+			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem());
+		} else if (droppedBlock == Blocks.cobblestone) {
+			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem());
+		}
+		return drop;
+	}
+
+	@Override
+	public boolean canHarvestBlock(EntityPlayer player, int meta) {
+		return getBase(meta).canHarvestBlock(player, getBaseMeta(meta));
+	}
+
+	@Override
+	public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
+		return getBase(metadata).canSilkHarvest(world, player, x, y, z, getBaseMeta(metadata));
+	}
+
+	protected abstract Block getBase(int meta);
+
+	protected int getBaseMeta(int meta) {
+		return 0;
+	}
+
+	@Override
+	public String getNameDomain() {
+		return super.getNameDomain() + (getTextureSubfolder().isEmpty() ? "" : (super.getNameDomain().isEmpty() ? "" : ".") + getTextureSubfolder());
+	}
+
+	@Override
+	public String getTextureDomain() {
+		return Reference.MOD_ID;
+	}
+
+	@Override
+	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
+		return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_);
+	}
+
+
+	@Override
+	public float getBlockHardness(World world, int x, int y, int z) {
+		return hardnesses[Math.min(world.getBlockMetadata(x, y, z), hardnesses.length - 1)];
+	}
+
+	@Override
+	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+		return resistances[Math.min(world.getBlockMetadata(x, y, z), resistances.length - 1)];
+	}
+
+	@Override
+	public void onLoadAction() {
+		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
+		for (int i = 0; i < getTypes().length; i++) {
+			RegistryMapping<Block> mapping = new RegistryMapping<>(getBase(i), getBaseMeta(i));
+			Block block = mapping.getObject();
+			//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
+			world.setBlock(0, 0, 0, block, mapping.getMeta(), 0);
+			try {
+				if (block.getHarvestTool(mapping.getMeta()) != null) {
+					setHarvestLevel("pickaxe", block.getHarvestLevel(mapping.getMeta()), i);
+				}
+				hardnesses[i] = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to divide because the base method we overrode won't be dividing
+			} catch (Exception e) {
+				setHarvestLevel("pickaxe", 1, i);
+				hardnesses[i] = Blocks.iron_ore.blockHardness * 1.5F;
+				resistances[i] = Blocks.iron_ore.blockResistance;
+			}
+		}
+		world.clearBlocksCache();
+	}
+}

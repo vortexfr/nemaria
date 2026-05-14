@@ -1,0 +1,11 @@
+[03:21:42] [main/INFO]: Setting user: Vartax_Tv
+[03:21:44] [Client thread/INFO]: LWJGL Version: 2.9.1
+[03:21:53] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Nemaria
+[03:21:56] [Sound Library Loader/INFO]: Sound engine started
+[03:22:02] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[03:22:02] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[03:22:03] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:§5§oNemaria, AssetDirector, nemaria/vanilla_overrides, Et Futurum Requiem dynamic greyscale water for potion cauldrons, Et Futurum Requiem dynamic sounds.json
+[03:22:03] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
+[03:22:04] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[03:22:04] [Sound Library Loader/INFO]: Sound engine started
+[03:22:12] [Client thread/INFO]: Stopping!
