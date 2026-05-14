@@ -866,4 +866,16 @@ public class ClientEventHandler {
 		}
 	}
 
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onFogDensity(net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity event) {
+		// Ne pas enlever le brouillard sous l'eau ou dans la lave pour ne pas casser le jeu
+		if (event.block.getMaterial() == net.minecraft.block.material.Material.water || event.block.getMaterial() == net.minecraft.block.material.Material.lava) {
+			return; 
+		}
+		
+		// Dégage le fog en forçant la densité à 0 et en annulant l'effet vanilla
+		event.density = 0.0F;
+		event.setCanceled(true);
+	}
 }

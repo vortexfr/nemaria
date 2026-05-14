@@ -51,7 +51,7 @@ import fr.nemaria.mods.future.client.sound.ModSounds;
 import fr.nemaria.mods.future.command.CommandFill;
 import fr.nemaria.mods.future.command.CommandGameMode;
 import fr.nemaria.mods.future.compat.ModsList;
-import fr.nemaria.mods.future.configuration.*;
+import fr.nemaria.mods.future.configuration.ConfigBase;
 import fr.nemaria.mods.future.configuration.configs.ConfigBlocksItems;
 import fr.nemaria.mods.future.configuration.configs.ConfigExperiments;
 import fr.nemaria.mods.future.configuration.configs.ConfigFunctions;
@@ -84,6 +84,9 @@ import fr.nemaria.mods.future.world.end.dimension.DimensionProviderEFREnd;
 import fr.nemaria.mods.future.world.nether.biome.utils.NetherBiomeManager;
 import fr.nemaria.mods.future.world.nether.dimension.DimensionProviderEFRNether;
 import fr.nemaria.mods.future.world.structure.OceanMonument;
+import fr.nemaria.mods.init.ModCrafts;
+import fr.nemaria.mods.init.RegisterBlock;
+import fr.nemaria.mods.init.RegisterItems;
 import fr.nemaria.mods.proxy.CommonProxy;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
@@ -178,6 +181,9 @@ public class Nemaria {
 
 		ModBlocks.init();
 		ModItems.init();
+		
+		RegisterBlock.init();
+		RegisterItems.init();
 		ModEnchantments.init();
 		ModPotions.init();
 		SpectatorMode.init();
@@ -260,6 +266,8 @@ public class Nemaria {
 		proxy.registerEvents();
 		proxy.registerEntities();
 		proxy.registerRenderers();
+
+		ModCrafts.init();
 
 	}
 
@@ -631,6 +639,8 @@ public class Nemaria {
 		if (ConfigMixins.enableSpectatorMode) {
 			event.registerServerCommand(new CommandGameMode());
 		}
+		
+		event.registerServerCommand(new fr.nemaria.mods.future.command.CommandLocate());
 	}
 
 	/**

@@ -219,4 +219,28 @@ public class WorldEventHandler {
 			}
 		}
 	}
+
+	@SubscribeEvent
+	public void onReplaceBiomeBlocks(net.minecraftforge.event.terraingen.ChunkProviderEvent.ReplaceBiomeBlocks event) {
+		if (event.world == null || event.blockArray == null) return;
+		
+		int height = event.blockArray.length / 256;
+		boolean isNether = event.world.provider.dimensionId == -1;
+		
+		Block filler = isNether ? Blocks.netherrack : Blocks.stone;
+		
+		for (int i = 0; i < event.blockArray.length; i++) {
+			if (event.blockArray[i] == Blocks.bedrock) {
+				int y = i % height;
+				// Nettoyer la bedrock entre Y=1 et Y=4
+				if (y > 0 && y < 5) {
+					event.blockArray[i] = filler;
+				} 
+				// Nettoyer la bedrock du plafond dans le Nether (Y=123 à Y=126)
+				else if (isNether && y > height - 6 && y < height - 1) {
+					event.blockArray[i] = filler;
+				}
+			}
+		}
+	}
 }
