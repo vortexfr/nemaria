@@ -1,95 +1,11 @@
-[03:53:42] [main/INFO]: Setting user: Vartax_Tv
-[03:53:44] [Client thread/INFO]: LWJGL Version: 2.9.1
-[03:53:53] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Nemaria
-[03:53:56] [Sound Library Loader/INFO]: Sound engine started
-[03:54:02] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[03:54:02] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[03:54:03] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:§5§oNemaria, AssetDirector, nemaria/vanilla_overrides, Et Futurum Requiem dynamic greyscale water for potion cauldrons, Et Futurum Requiem dynamic sounds.json
-[03:54:04] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
-[03:54:04] [Client thread/INFO]: Created: 512x256 textures/items-atlas
-[03:54:05] [Sound Library Loader/INFO]: Sound engine started
-[03:54:13] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[03:54:13] [Server thread/INFO]: Generating keypair
-[03:54:13] [Server thread/INFO]: Preparing start region for level 0
-[03:54:14] [Server thread/INFO]: Changing view distance to 2, from 10
-[03:54:15] [Server thread/INFO]: Vartax_Tv[local:E:0c9e19ac] logged in with entity id 408 at (-96.95527866624343, 77.48034892607319, 270.8754794909816)
-[03:54:15] [Server thread/INFO]: Vartax_Tv joined the game
-[03:54:18] [Client thread/INFO]: [CHAT] codechickencore.update
-[03:54:19] [Server thread/INFO]: Saving and pausing game...
-[03:54:19] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[03:54:19] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
-[03:54:19] [Server thread/INFO]: Saving chunks for level 'New World'/The End
-[03:54:22] [Client thread/INFO]: [CHAT] biome, Stronghold, Mineshaft, Village, Temple, Monument, Fortress
-[03:54:23] [Client thread/INFO]: [CHAT] biome, Stronghold, Mineshaft, Village, Temple, Monument, Fortress
-[03:54:23] [Client thread/INFO]: [CHAT] §aStructure Stronghold trouvée en -168 ~ 872 (606 blocs)
-[03:54:26] [Server thread/INFO]: [Vartax_Tv: Teleported Vartax_Tv to -167.5,77.48034892607319,872.5]
-[03:54:26] [Client thread/INFO]: [CHAT] Teleported Vartax_Tv to -167.5,77.48034892607319,872.5
-[03:54:37] [Server thread/INFO]: [Vartax_Tv: Given Night Vision (ID 16) * 0 to Vartax_Tv for 9999 seconds]
-[03:54:37] [Client thread/INFO]: [CHAT] Given Night Vision (ID 16) * 0 to Vartax_Tv for 9999 seconds
-[03:54:39] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[03:54:40] [Client thread/INFO]: [CHAT] survival, spectateur
-[03:54:42] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[03:54:42] [Client thread/INFO]: [CHAT] §aMode de jeu changé en : §bSpectateur
-[03:55:09] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[03:55:09] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[03:55:09] [Client thread/INFO]: [CHAT] §aMode de jeu changé en : §bCréatif
-[03:57:19] [Server thread/INFO]: Saving and pausing game...
-[03:57:19] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[03:57:19] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
-[03:57:19] [Server thread/INFO]: Saving chunks for level 'New World'/The End
-[03:57:21] [Server thread/INFO]: Saving and pausing game...
-[03:57:21] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[03:57:21] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
-[03:57:21] [Server thread/INFO]: Saving chunks for level 'New World'/The End
-[03:57:27] [Server thread/INFO]: Changing view distance to 5, from 2
-[03:57:28] [Server thread/INFO]: Saving and pausing game...
-[03:57:28] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[03:57:28] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
-[03:57:28] [Server thread/INFO]: Saving chunks for level 'New World'/The End
-[03:58:41] [Client thread/INFO]: [CHAT] biome, Stronghold, Mineshaft, Village, Temple, Monument, Fortress
-[04:03:47] [Server thread/INFO]: [Vartax_Tv: Teleported Vartax_Tv to 3000.5,90.5,30000.5]
-[04:03:47] [Client thread/INFO]: [CHAT] Teleported Vartax_Tv to 3000.5,90.5,30000.5
-[04:04:04] [Server thread/INFO]: Vartax_Tv fell out of the world
-[04:04:04] [Client thread/INFO]: [CHAT] Vartax_Tv fell out of the world
-[04:04:04] [Client thread/INFO]: [CHAT] Ouch! That looked like it hurt
-[04:04:15] [Server thread/INFO]: [Vartax_Tv: Set the time to 1000]
-[04:04:15] [Client thread/INFO]: [CHAT] Set the time to 1000
-[04:06:40] [Client thread/INFO]: [CHAT] §eRecherche du biome Jungle...
-[04:06:57] [Client thread/INFO]: [CHAT] §aBiome Jungle trouvé en -5675 ~ -4489 (7851 blocs)
-[04:06:57] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 17733ms behind, skipping 354 tick(s)
-[04:07:02] [Server thread/INFO]: [Vartax_Tv: Teleported Vartax_Tv to -5674.5,78.6222798962304,-4488.5]
-[04:07:02] [Client thread/INFO]: [CHAT] Teleported Vartax_Tv to -5674.5,78.6222798962304,-4488.5
-[04:07:22] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:22] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:24] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:24] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:25] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:28] [Server thread/INFO]: [Vartax_Tv: Game rule has been updated]
-[04:07:28] [Client thread/INFO]: [CHAT] Game rule has been updated
-[04:07:30] [Client thread/INFO]: Warning: Clientside chunk ticking took 104 ms
-[04:07:32] [Client thread/INFO]: Warning: Clientside chunk ticking took 104 ms
-[04:07:35] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 5333ms behind, skipping 106 tick(s)
-[04:07:46] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:46] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:47] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:07:50] [Server thread/INFO]: [Vartax_Tv: Game rule has been updated]
-[04:07:50] [Client thread/INFO]: [CHAT] Game rule has been updated
-[04:09:13] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:09:13] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:09:13] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:09:16] [Server thread/INFO]: [Vartax_Tv: Game rule has been updated]
-[04:09:16] [Client thread/INFO]: [CHAT] Game rule has been updated
-[04:09:23] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:09:23] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:09:24] [Client thread/INFO]: [CHAT] /gamemode, /give, /gamerule
-[04:09:28] [Server thread/INFO]: [Vartax_Tv: Game rule has been updated]
-[04:09:28] [Client thread/INFO]: [CHAT] Game rule has been updated
-[04:10:36] [Server thread/INFO]: Saving and pausing game...
-[04:10:36] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[04:10:36] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
-[04:10:37] [Client thread/INFO]: Stopping!
-[04:10:37] [Server thread/INFO]: Stopping server
-[04:10:37] [Server thread/INFO]: Saving players
-[04:10:37] [Server thread/INFO]: Saving worlds
-[04:10:37] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[04:10:37] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[01:16:48] [main/INFO]: Setting user: Vartax_Tv
+[01:16:50] [Client thread/INFO]: LWJGL Version: 2.9.1
+[01:17:00] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Nemaria
+[01:17:03] [Sound Library Loader/INFO]: Sound engine started
+[01:17:09] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[01:17:09] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[01:17:10] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:§5§oNemaria, AssetDirector, nemaria/vanilla_overrides, Et Futurum Requiem dynamic greyscale water for potion cauldrons, Et Futurum Requiem dynamic sounds.json
+[01:17:11] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
+[01:17:11] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[01:17:12] [Sound Library Loader/INFO]: Sound engine started
+[01:18:17] [Client thread/INFO]: Stopping!

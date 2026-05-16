@@ -95,6 +95,10 @@ compileJava {
 	options.encoding = "UTF-8"
 }
 
+tasks.withType(Javadoc) {
+	options.encoding = "UTF-8"
+}
+
 configurations {
     // By default only compileClasspath extends shadow, make runtime extend it too
     compile.extendsFrom(shadow)

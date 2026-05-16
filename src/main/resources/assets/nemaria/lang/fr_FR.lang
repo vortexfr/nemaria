@@ -1867,3 +1867,14 @@ item.nemaria.raw_boron.name=Raw Boron
 item.nemaria.simpleores.raw_adamantium.name=Raw Adamantium
 
 
+
+# ── Set Titane ────────────────────────────────────────────────
+item.titane_ingot.name=Lingot de Titane
+item.titane_helmet.name=Casque en Titane
+item.titane_chestplate.name=Plastron en Titane
+item.titane_leggings.name=Jambières en Titane
+item.titane_boots.name=Bottes en Titane
+itemGroup.nemaria=Nemaria
+
+tile.titane_block.name=Bloc de Titane
+tile.titane_ore.name=Minerai de Titane

@@ -1,16 +1,18 @@
 package fr.nemaria.mods.init;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import fr.nemaria.mods.blocks.BlockTitanium;
+import fr.nemaria.mods.blocks.BlockTitaniumOre;
 import net.minecraft.block.Block;
 
 public class RegisterBlock {
-    
-    // 1. Déclare ton bloc ici
-    // public static Block testBlock;
+
+    public static Block titaniumBlock;
+    public static Block titaniumOre;
 
     public static void init() {
-        // 2. Initialise et enregistre d'un seul coup ici
-        // register(testBlock = new BlockTest());
+        register(titaniumBlock = new BlockTitanium());
+        register(titaniumOre  = new BlockTitaniumOre());
     }
 
     /**

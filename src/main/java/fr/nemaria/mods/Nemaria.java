@@ -205,6 +205,7 @@ public class Nemaria {
 
 		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
+		GameRegistry.registerWorldGenerator(fr.nemaria.mods.world.NemariaWorldGenerator.INSTANCE, 1);
 
 		OceanMonument.makeMap();
 
