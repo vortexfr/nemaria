@@ -1,5 +1,6 @@
 package fr.nemaria.mods.future.command;
 
+import fr.nemaria.mods.common.commands.NemariaCommand;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -11,10 +12,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class CommandFill extends CommandBase {
-	@Override
-	public String getCommandName() {
-		return "fill";
+
+public class CommandFill extends NemariaCommand {
+
+	public CommandFill() {
+		super("fill");
 	}
 
 	@Override

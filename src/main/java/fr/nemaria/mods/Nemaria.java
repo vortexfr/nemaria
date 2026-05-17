@@ -642,6 +642,7 @@ public class Nemaria {
 		}
 		
 		event.registerServerCommand(new fr.nemaria.mods.future.command.CommandLocate());
+		event.registerServerCommand(new fr.nemaria.mods.future.command.CommandWorldBorder());
 	}
 
 	/**

@@ -2,7 +2,7 @@ package fr.nemaria.mods.client.gui;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
+import fr.nemaria.mods.utils.References;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
@@ -11,35 +11,27 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class GuiNemariaMainMenu extends GuiScreen {
 
-    private static final ResourceLocation BACKGROUND =
-        new ResourceLocation("nemaria", "textures/gui/menu/background.png");
-
-    private static final ResourceLocation LOGO =
-        new ResourceLocation("nemaria", "textures/gui/menu/nemaria.png");
-
-    // Dimensions du logo — ratio réel 1.5:1
-    private static final int LOGO_W = 120;
-    private static final int LOGO_H = 80;
-
-    // IDs boutons
-    private static final int BTN_PLAY    = 0;
-    private static final int BTN_SOLO    = 1;
+    private static final ResourceLocation BACKGROUND = new ResourceLocation("nemaria", "textures/gui/menu/background.png");
+    private static final ResourceLocation LOGO = new ResourceLocation("nemaria", "textures/gui/menu/nemaria.png");
+    private static final int LOGO_W = 200;
+    private static final int LOGO_H = 54;
+    private static final int BTN_PLAY = 0;
+    private static final int BTN_SOLO = 1;
     private static final int BTN_OPTIONS = 2;
-    private static final int BTN_QUIT    = 3;
+    private static final int BTN_QUIT = 3;
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void initGui() {
         this.buttonList.clear();
-
-        int leftX    = 30;
+        int leftX = 30;
         int btnWidth = 120;
-        int startY   = this.height / 2 - 40;
+        int startY = this.height / 2 - 40;
         int spacing  = 28;
-
-        this.buttonList.add(new NemariaButton(BTN_PLAY,    leftX, startY,               btnWidth, "Jouer",   0xFF4444));
-        this.buttonList.add(new NemariaButton(BTN_SOLO,    leftX, startY + spacing,     btnWidth, "Solo"));
+        this.buttonList.add(new NemariaButton(BTN_PLAY, leftX, startY, btnWidth, "Jouer", 0xFF4444));
+        this.buttonList.add(new NemariaButton(BTN_SOLO, leftX, startY + spacing, btnWidth, "Solo"));
         this.buttonList.add(new NemariaButton(BTN_OPTIONS, leftX, startY + spacing * 2, btnWidth, "Options"));
-        this.buttonList.add(new NemariaButton(BTN_QUIT,    leftX, startY + spacing * 3, btnWidth, "Quitter"));
+        this.buttonList.add(new NemariaButton(BTN_QUIT, leftX, startY + spacing * 3, btnWidth, "Quitter"));
     }
 
     @Override
@@ -62,45 +54,37 @@ public class GuiNemariaMainMenu extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        // ── Background plein écran ────────────────────────────────────────
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1f, 1f, 1f, 1f);
-
         this.mc.getTextureManager().bindTexture(BACKGROUND);
         Tessellator t = Tessellator.instance;
         t.startDrawingQuads();
-        t.addVertexWithUV(0,          this.height, 0,  0, 1);
+        t.addVertexWithUV(0, this.height, 0,  0, 1);
         t.addVertexWithUV(this.width, this.height, 0,  1, 1);
-        t.addVertexWithUV(this.width, 0,           0,  1, 0);
-        t.addVertexWithUV(0,          0,           0,  0, 0);
+        t.addVertexWithUV(this.width, 0, 0,  1, 0);
+        t.addVertexWithUV(0, 0,  0,  0, 0);
         t.draw();
-
         GL11.glDisable(GL11.GL_BLEND);
-
-        // ── Logo centré en haut ───────────────────────────────────────────
         int logoX = (this.width - LOGO_W) / 2;
         int logoY = 4;
-
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1f, 1f, 1f, 1f);
         this.mc.getTextureManager().bindTexture(LOGO);
         Tessellator tl = Tessellator.instance;
         tl.startDrawingQuads();
-        tl.addVertexWithUV(logoX,          logoY + LOGO_H, 0,  0, 1);
+        tl.addVertexWithUV(logoX, logoY + LOGO_H, 0,  0, 1);
         tl.addVertexWithUV(logoX + LOGO_W, logoY + LOGO_H, 0,  1, 1);
-        tl.addVertexWithUV(logoX + LOGO_W, logoY,          0,  1, 0);
-        tl.addVertexWithUV(logoX,          logoY,          0,  0, 0);
+        tl.addVertexWithUV(logoX + LOGO_W, logoY, 0,  1, 0);
+        tl.addVertexWithUV(logoX, logoY, 0,  0, 0);
         tl.draw();
         GL11.glDisable(GL11.GL_BLEND);
-
-        // ── Références en bas à droite ────────────────────────────────────
-        String forge  = "Forge " + net.minecraftforge.common.MinecraftForge.MC_VERSION;
+        String forge = "Version " + References.VERSION;
         String mojang = "Minecraft By Mojang Studios";
 
         int padRight = 6;
-        int padBot   = 6;
+        int padBot = 6;
 
         this.fontRendererObj.drawStringWithShadow(
             mojang,
@@ -115,7 +99,6 @@ public class GuiNemariaMainMenu extends GuiScreen {
             0x888888
         );
 
-        // ── Boutons ───────────────────────────────────────────────────────
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

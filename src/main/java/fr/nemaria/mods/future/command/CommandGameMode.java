@@ -1,7 +1,9 @@
 package fr.nemaria.mods.future.command;
 
+import java.util.List;
+
+import fr.nemaria.mods.common.commands.NemariaCommand;
 import fr.nemaria.mods.future.spectator.SpectatorMode;
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -10,14 +12,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.WorldSettings;
 
-import java.util.Arrays;
-import java.util.List;
+public class CommandGameMode extends NemariaCommand {
 
-public class CommandGameMode extends CommandBase {
-
-    @Override
-    public String getCommandName() {
-        return "gamemode";
+    public CommandGameMode() {
+        super("gamemode");
     }
 
     @Override

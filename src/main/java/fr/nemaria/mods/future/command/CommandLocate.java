@@ -3,7 +3,7 @@ package fr.nemaria.mods.future.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.command.CommandBase;
+import fr.nemaria.mods.common.commands.NemariaCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -14,11 +14,10 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class CommandLocate extends CommandBase {
+public class CommandLocate extends NemariaCommand {
 
-	@Override
-	public String getCommandName() {
-		return "locate";
+	public CommandLocate() {
+		super("locate");
 	}
 
 	@Override

@@ -1,11 +1,35 @@
-[01:16:48] [main/INFO]: Setting user: Vartax_Tv
-[01:16:50] [Client thread/INFO]: LWJGL Version: 2.9.1
-[01:17:00] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Nemaria
-[01:17:03] [Sound Library Loader/INFO]: Sound engine started
-[01:17:09] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[01:17:09] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[01:17:10] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:§5§oNemaria, AssetDirector, nemaria/vanilla_overrides, Et Futurum Requiem dynamic greyscale water for potion cauldrons, Et Futurum Requiem dynamic sounds.json
-[01:17:11] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
-[01:17:11] [Client thread/INFO]: Created: 512x256 textures/items-atlas
-[01:17:12] [Sound Library Loader/INFO]: Sound engine started
-[01:18:17] [Client thread/INFO]: Stopping!
+[19:11:30] [main/INFO]: Setting user: Vartax_Tv
+[19:11:31] [Client thread/INFO]: LWJGL Version: 2.9.1
+[19:11:42] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Nemaria
+[19:11:45] [Sound Library Loader/INFO]: Sound engine started
+[19:11:51] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[19:11:51] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[19:11:52] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:§5§oNemaria, AssetDirector, nemaria/vanilla_overrides, Et Futurum Requiem dynamic greyscale water for potion cauldrons, Et Futurum Requiem dynamic sounds.json
+[19:11:53] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
+[19:11:53] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[19:11:54] [Sound Library Loader/INFO]: Sound engine started
+[19:12:04] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[19:12:04] [Server thread/INFO]: Generating keypair
+[19:12:04] [Server thread/INFO]: Preparing start region for level 0
+[19:12:05] [Server thread/INFO]: Changing view distance to 3, from 10
+[19:12:06] [Server thread/INFO]: Vartax_Tv[local:E:8c145563] logged in with entity id 293 at (-5351.98426352495, 82.0, -5130.535698506614)
+[19:12:06] [Server thread/INFO]: Vartax_Tv joined the game
+[19:12:10] [Client thread/INFO]: [CHAT] codechickencore.update
+[19:12:34] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:36] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:37] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:37] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:37] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:37] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:37] [Client thread/INFO]: [CHAT] §cImpossible de se téléporter en dehors de la bordure !
+[19:12:44] [Server thread/INFO]: Saving and pausing game...
+[19:12:44] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[19:12:44] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[19:12:44] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[19:12:45] [Server thread/INFO]: Stopping server
+[19:12:45] [Server thread/INFO]: Saving players
+[19:12:45] [Server thread/INFO]: Saving worlds
+[19:12:45] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[19:12:45] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[19:12:45] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[19:12:46] [Client thread/INFO]: Stopping!

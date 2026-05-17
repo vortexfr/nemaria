@@ -1878,3 +1878,12 @@ itemGroup.nemaria=Nemaria
 
 tile.titane_block.name=Bloc de Titane
 tile.titane_ore.name=Minerai de Titane
+# Erreurs systeme commandes
+commands.nemaria.error.parse.missing.args=Arguments manquants
+commands.nemaria.error.parse.int=Nombre invalide : %s
+commands.nemaria.error.parse.long=Nombre invalide (long) : %s
+commands.nemaria.error.parse.double=Nombre invalide (decimal) : %s
+commands.nemaria.error.parse.boolean=Booleen invalide (true/false) : %s
+commands.nemaria.error.parse.enum=Valeur invalide : %s
+commands.nemaria.error.parse.to_small=Valeur %s trop petite (minimum : %s)
+commands.nemaria.error.parse.to_big=Valeur %s trop grande (maximum : %s)

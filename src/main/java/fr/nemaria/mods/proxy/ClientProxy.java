@@ -136,6 +136,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(fr.nemaria.mods.client.NemariaDebugOverlay.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(fr.nemaria.mods.client.gui.NemariaMenuHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(fr.nemaria.mods.client.gui.NeMariacursorManager.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(fr.nemaria.mods.client.gui.chat.NemariaChatHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(fr.nemaria.mods.future.worldborder.client.WorldBorderClientHandler.INSTANCE);
 	}
 
 	@Override

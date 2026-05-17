@@ -111,6 +111,9 @@ public class CommonProxy implements IGuiHandler {
 		if (ModItems.DEBUGGING_TOOL.isEnabled()) {
 			MinecraftForge.EVENT_BUS.register(ModItems.DEBUGGING_TOOL.get());
 		}
+
+		FMLCommonHandler.instance().bus().register(fr.nemaria.mods.future.worldborder.WorldBorderEventHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(fr.nemaria.mods.future.worldborder.WorldBorderEventHandler.INSTANCE);
 	}
 
 	public void registerEntities() {
